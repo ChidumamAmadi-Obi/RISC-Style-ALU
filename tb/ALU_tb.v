@@ -1,7 +1,5 @@
 `timescale 1ns/1ps
 
-`timescale 1ns/1ps
-
 module tb_top;
     // first, testbench signals (variables) are declared
     // these will be connected to the ALU module
@@ -62,4 +60,5 @@ module tb_top;
         
         $finish;
     end
+
 endmodule
