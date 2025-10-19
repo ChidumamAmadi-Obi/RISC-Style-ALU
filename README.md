@@ -1,24 +1,36 @@
-# 32-Bit ALU on the Tang Nano 9k FPGA
+# RISC_Style on the Tang Nano 9k FPGA
 
-32-bit Arithmetic Logic Unit (ALU) on the Gowin Tang Nano 9K FPGA using Verilog. This project aims to deepen my understanding of digital design, Verilog, and FPGA workflows.
+Arithmetic Logic Unit (ALU) on the Gowin Tang Nano 9K FPGA using Verilog. This project aims to deepen my understanding of digital design, Verilog, and FPGA workflows.
 
 ## Project Status
 🚧 In Progress
 
 ## Demos
 ### Basic 6-bit counter example
-
 [](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
 
 ![](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
 
-## Features (Planned)
-- [x] Basic Arithmetic (ADD, SUB)
-- [x] Bitwise Logic (AND, OR, XOR, NOT)
-- [ ] Barrel Shifter
-- [ ] Multiply/Divide (Extension)
-- [ ] Seven-Segment Display Output
-- [ ] UART Debugging Interface
+### ALU Testbench Output
+![testbenchhhh](https://github.com/user-attachments/assets/aeed3be7-3324-45e0-bcb4-759ae91585a7)
+
+## Roadmap
+Phase 1: Core ALU _(Complete)_
+        - [x] **Arithmetic Operations** (ADD, SUB with status flags)
+        - [x] **Bitwise Logic Unit** (AND, OR, XOR, NAND, NOR, XNOR)
+        - [x] **Verification Suite** (Self-checking testbench)
+        - [x] **FPGA Validation** (6-bit counter hardware demo)
+      
+Phase 2: Enhanced Operations
+        - [ ] **Barrel Shifter** (Logical & arithmetic shifts, rotates)
+        - [ ] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN from opcodes)
+        - [ ] **Multiplication Unit** (2-bit => 4-bit result with pipeline)
+        - [ ] **Division & Modulo** (Restoring division algo)
+
+Phase 3: System Integration
+        - [ ] **8-bit Scalable Architecture** (Parameterized design)
+        - [ ] **Control Unit Integration** (Instruction decode & sequencing)
+        - [ ] **Seven-Segment Display Driver** (Hex output for debugging)
 
 ## Tools
 - **HDL:** Verilog
