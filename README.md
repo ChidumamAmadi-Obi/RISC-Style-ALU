@@ -16,21 +16,21 @@ Arithmetic Logic Unit (ALU) on the Gowin Tang Nano 9K FPGA using Verilog. This p
 
 ## Roadmap
 Phase 1: Core ALU _(Complete)_
-        - [x] **Arithmetic Operations** (ADD, SUB with status flags)
-        - [x] **Bitwise Logic Unit** (AND, OR, XOR, NAND, NOR, XNOR)
-        - [x] **Verification Suite** (Self-checking testbench)
-        - [x] **FPGA Validation** (6-bit counter hardware demo)
+- [x] **Arithmetic Operations** (ADD, SUB with status flags)
+- [x] **Bitwise Logic Unit** (AND, OR, XOR, NAND, NOR, XNOR)
+- [x] **Verification Suite** (Self-checking testbench)
+- [x] **FPGA Validation** (6-bit counter hardware demo)
       
 Phase 2: Enhanced Operations
-        - [ ] **Barrel Shifter** (Logical & arithmetic shifts, rotates)
-        - [ ] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN from opcodes)
-        - [ ] **Multiplication Unit** (2-bit => 4-bit result with pipeline)
-        - [ ] **Division & Modulo** (Restoring division algo)
+- [ ] **Barrel Shifter** (Logical & arithmetic shifts, rotates)
+- [ ] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN from opcodes)
+- [ ] **Multiplication Unit** (2-bit => 4-bit result with pipeline)
+- [ ] **Division & Modulo** (Restoring division algo)
 
 Phase 3: System Integration
-        - [ ] **8-bit Scalable Architecture** (Parameterized design)
-        - [ ] **Control Unit Integration** (Instruction decode & sequencing)
-        - [ ] **Seven-Segment Display Driver** (Hex output for debugging)
+- [ ] **8-bit Scalable Architecture** (Parameterized design)
+- [ ] **Control Unit Integration** (Instruction decode & sequencing)
+- [ ] **Seven-Segment Display Driver** (Hex output for debugging)
 
 ## Tools
 - **HDL:** Verilog
