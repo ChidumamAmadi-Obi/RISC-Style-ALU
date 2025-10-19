@@ -5,6 +5,13 @@
 ## Project Status
 🚧 In Progress
 
+## Demos
+### Basic 6-bit counter example
+
+[](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
+
+![](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
+
 ## Features (Planned)
 - [x] Basic Arithmetic (ADD, SUB)
 - [x] Bitwise Logic (AND, OR, XOR, NOT)
