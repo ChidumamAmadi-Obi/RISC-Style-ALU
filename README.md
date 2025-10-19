@@ -1,6 +1,6 @@
 # 32-Bit ALU on the Tang Nano 9k FPGA
 
-A project to design and implement a 32-bit Arithmetic Logic Unit (ALU) on the Gowin Tang Nano 9K FPGA using Verilog. This project aims to deepen my understanding of digital design, Verilog, and FPGA workflows.
+32-bit Arithmetic Logic Unit (ALU) on the Gowin Tang Nano 9K FPGA using Verilog. This project aims to deepen my understanding of digital design, Verilog, and FPGA workflows.
 
 ## Project Status
 🚧 In Progress
@@ -32,4 +32,7 @@ A project to design and implement a 32-bit Arithmetic Logic Unit (ALU) on the Go
 ```
 ## Useful Links
 [Verilog Cheat Sheet](https://cheatsheetshero.com/user/all/476-verilog-cheatsheet.pdf)
+
 [Tang Nano 9k Information & Resources](https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-9K/Nano-9K.html)
+
+[Icarus Verilog](https://steveicarus.github.io/iverilog/)
