@@ -6,8 +6,8 @@ A project to design and implement a 32-bit Arithmetic Logic Unit (ALU) on the Go
 🚧 In Progress
 
 ## Features (Planned)
-- [ ] Basic Arithmetic (ADD, SUB)
-- [ ] Bitwise Logic (AND, OR, XOR, NOT)
+- [x] Basic Arithmetic (ADD, SUB)
+- [x] Bitwise Logic (AND, OR, XOR, NOT)
 - [ ] Barrel Shifter
 - [ ] Multiply/Divide (Extension)
 - [ ] Seven-Segment Display Output
