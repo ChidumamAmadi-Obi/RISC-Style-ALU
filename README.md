@@ -50,8 +50,7 @@ Phase 3: System Integration
         /constraints-> Physical constraint files (.cst)
 ```
 ## Useful Links
-[Verilog Cheat Sheet](https://cheatsheetshero.com/user/all/476-verilog-cheatsheet.pdf)
-
-[Tang Nano 9k Information & Resources](https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-9K/Nano-9K.html)
-
-[Icarus Verilog](https://steveicarus.github.io/iverilog/)
+[Verilog Cheat Sheet](https://cheatsheetshero.com/user/all/476-verilog-cheatsheet.pdf) <br>
+[Tang Nano 9k Information & Resources](https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-9K/Nano-9K.html) <br>
+[Icarus Verilog](https://steveicarus.github.io/iverilog/) <br>
+[EDA Playground](https://www.edaplayground.com/)
