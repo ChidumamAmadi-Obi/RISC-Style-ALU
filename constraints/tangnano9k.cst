@@ -1,0 +1,39 @@
+# Tang Nano 9K Constraint File for 2-bit ALU
+# Clock (if needed)
+# IO_LOC "clk" 35;
+
+# Input A (2-bit)
+IO_LOC "a[0]" 10;
+IO_LOC "a[1]" 11;
+
+# Input B (2-bit)
+IO_LOC "b[0]" 12;
+IO_LOC "b[1]" 13;
+
+# Operation Select (2-bit)
+IO_LOC "sel[0]" 14;
+IO_LOC "sel[1]" 15;
+
+# Output Result (2-bit)
+IO_LOC "out[0]" 16;
+IO_LOC "out[1]" 17;
+
+# Status Flags
+IO_LOC "zero" 18;
+IO_LOC "carry" 19;
+IO_LOC "overflow" 20;
+IO_LOC "error" 21;
+
+# IO Standards and Pull settings
+IO_PORT "a[0]" PULL_NONE;
+IO_PORT "a[1]" PULL_NONE;
+IO_PORT "b[0]" PULL_NONE;
+IO_PORT "b[1]" PULL_NONE;
+IO_PORT "sel[0]" PULL_NONE;
+IO_PORT "sel[1]" PULL_NONE;
+IO_PORT "out[0]" PULL_NONE DRIVE=8;
+IO_PORT "out[1]" PULL_NONE DRIVE=8;
+IO_PORT "zero" PULL_NONE DRIVE=8;
+IO_PORT "carry" PULL_NONE DRIVE=8;
+IO_PORT "overflow" PULL_NONE DRIVE=8;
+IO_PORT "error" PULL_NONE DRIVE=8;
