@@ -1,8 +1,5 @@
-# RISC_Style on the Tang Nano 9k FPGA
+# RISC_Style on the Tang Nano 9k FPGA (🚧 In Progress)
 Configurable ALU capable of performing 16 unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system.
-
-### Project Status
-🚧 In Progress
 
 ### Demos
 #### Basic 6-bit counter example
@@ -15,12 +12,11 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
 
 ### Features
 * Parameterized Design: Easily configurable data width for scalability.
-* Comprehensive Operation Set: Supports 16 operations:
-      - Arithmetic: ADD, SUB, INCREMENT, DECREMENT, MODULO <br>
-      - Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR, NOT <br>
-      - Comparison: EQUAL, GREATER_THAN, LESS_THAN<br>
-      - Bit Shifting: LOGICAL_SHIFT_LEFT, LOGICAL_SHIFT_RIGHT<br>
-      - Flag Generation: Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results. <br>
+* Comprehensive Operation Set: Supports 16 operations:<br>
+  * Arithmetic: ADD, SUB, INCREMENT, DECREMENT, MODULO <br>
+  * Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR, NOT <br>
+  * Comparison: EQUAL, GREATER_THAN, LESS_THAN<br>
+  * Flag Generation: Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results. <br>
 * Advanced Verification: Features a fully automated self-checking testbench with a custom bitmask-based error-tracking system for precise fault isolation.
 
 ### Roadmap
@@ -35,7 +31,7 @@ Phase 1: Core ALU _(Complete)_
       
 Phase 2: Enhanced Operations
 - [ ] **Barrel Shifter** (Logical & arithmetic shifts, rotates)
-- [ ] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN from opcodes)
+- [x] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN from opcodes)
 - [ ] **Multiplication Unit** (2-bit => 4-bit result with pipeline)
 - [ ] **Division & Modulo** (Restoring division algo)
 
