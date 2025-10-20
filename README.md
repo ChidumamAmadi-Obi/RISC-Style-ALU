@@ -7,8 +7,8 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
 
 ![](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
 
-#### ALU Testbench Output
-![testbenchhhh](https://github.com/user-attachments/assets/aeed3be7-3324-45e0-bcb4-759ae91585a7)
+#### ALU Testbench Example Output
+<img width="682" height="560" alt="image" src="https://github.com/user-attachments/assets/19c8f14d-b32d-4556-b3c8-e866fd7687b4" />
 
 ### Features
 * Parameterized Design: Easily configurable data width for scalability.
