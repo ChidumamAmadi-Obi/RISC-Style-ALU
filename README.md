@@ -1,6 +1,5 @@
 # RISC_Style on the Tang Nano 9k FPGA
-
-Arithmetic Logic Unit (ALU) on the Gowin Tang Nano 9K FPGA using Verilog. This project aims to deepen my understanding of digital design, Verilog, and FPGA workflows.
+Configurable ALU capable of performing 16 unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system.
 
 ### Project Status
 🚧 In Progress
@@ -13,6 +12,16 @@ Arithmetic Logic Unit (ALU) on the Gowin Tang Nano 9K FPGA using Verilog. This p
 
 #### ALU Testbench Output
 ![testbenchhhh](https://github.com/user-attachments/assets/aeed3be7-3324-45e0-bcb4-759ae91585a7)
+
+### Features
+* Parameterized Design: Easily configurable data width for scalability.
+* Comprehensive Operation Set: Supports 16 operations:
+      - Arithmetic: ADD, SUB, INCREMENT, DECREMENT, MODULO
+      - Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR, NOT
+      - Comparison: EQUAL, GREATER_THAN, LESS_THAN
+      - Bit Shifting: LOGICAL_SHIFT_LEFT, LOGICAL_SHIFT_RIGHT
+      - Flag Generation: Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results.
+* Advanced Verification: Features a fully automated self-checking testbench with a custom bitmask-based error-tracking system for precise fault isolation.
 
 ### Roadmap
 Phase 0: Validate Design Flow
