@@ -16,11 +16,11 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
 ### Features
 * Parameterized Design: Easily configurable data width for scalability.
 * Comprehensive Operation Set: Supports 16 operations:
-      - Arithmetic: ADD, SUB, INCREMENT, DECREMENT, MODULO
-      - Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR, NOT
-      - Comparison: EQUAL, GREATER_THAN, LESS_THAN
-      - Bit Shifting: LOGICAL_SHIFT_LEFT, LOGICAL_SHIFT_RIGHT
-      - Flag Generation: Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results.
+      - Arithmetic: ADD, SUB, INCREMENT, DECREMENT, MODULO <br>
+      - Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR, NOT <br>
+      - Comparison: EQUAL, GREATER_THAN, LESS_THAN<br>
+      - Bit Shifting: LOGICAL_SHIFT_LEFT, LOGICAL_SHIFT_RIGHT<br>
+      - Flag Generation: Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results. <br>
 * Advanced Verification: Features a fully automated self-checking testbench with a custom bitmask-based error-tracking system for precise fault isolation.
 
 ### Roadmap
