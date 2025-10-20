@@ -1,20 +1,29 @@
 IO_LOC  "sel[3]" 33;
+IO_PORT "sel[3]" DRIVE=8;
 
 IO_LOC  "sel[2]" 34;
+IO_PORT "sel[2]" DRIVE=8;
 
 IO_LOC  "clk" 35;
+IO_PORT "clk" DRIVE=8;
 
 IO_LOC  "a[0]" 10;
+IO_PORT "a[0]" DRIVE=8;
 
 IO_LOC  "a[1]" 11;
+IO_PORT "a[1]" DRIVE=8;
 
 IO_LOC  "b[0]" 12;
+IO_PORT "b[0]" DRIVE=8;
 
 IO_LOC  "b[1]" 13;
+IO_PORT "b[1]" DRIVE=8;
 
 IO_LOC  "sel[0]" 14;
+IO_PORT "sel[0]" DRIVE=8;
 
 IO_LOC  "sel[1]" 15;
+IO_PORT "sel[1]" DRIVE=8;
 
 IO_LOC  "out[0]" 16;
 IO_PORT "out[0]" DRIVE=8;

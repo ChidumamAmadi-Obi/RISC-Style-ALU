@@ -18,7 +18,8 @@
 `define OP_MULTIPLY         4'b1100
 `define OP_DIVIDE           4'b1101
 `define OP_MODULO           4'b1110
+`define OP_B_SHIFT_RIGHT    4'b1111
 
-`define TESTS 13 // number of tests in ALU_tb.v
+`define TESTS 19 // number of tests in ALU_tb.v
 
 `endif

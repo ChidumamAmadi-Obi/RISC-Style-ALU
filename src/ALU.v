@@ -1,3 +1,5 @@
+// 2 bit ALU so far, will upgrade to 8 or 32bit
+
 `include "ALU_constants.vh"
 
 module top(
@@ -28,7 +30,7 @@ module top(
             `OP_SUB: begin   // if subtracting
                 full_result = a - b;
                 out = full_result[1:0];
-            end
+            end //_____________________________________
             `OP_AND: begin // and
                 out = a & b;
                 full_result = {1'b0, out}; // No carry for logical ops
@@ -52,6 +54,17 @@ module top(
             `OP_XNOR: begin // xnor
                 out = a ~^ b;
                 full_result = {1'b0, out};
+            end //_____________________________________
+            `OP_EQU: begin // equal to
+                out = a == b;
+            end
+            `OP_GREATER_THAN: begin
+                out = a > b;
+                full_result = {1'b0, out};
+            end
+            `OP_LESS_THAN: begin
+                out = a < b;
+                full_result = {1'b0, out};
             end
             `OP_MODULO: begin // modulo
                 out = a % b;
@@ -59,7 +72,7 @@ module top(
             end
             default: begin // invalid opcode
                 out = 2'b0;
-                full_result = 4'b0;
+                full_result = 3'b0;
               	error = 1'b1;
             end
         endcase

@@ -38,14 +38,15 @@ module tb_top;
 
   initial begin
     errors = 0; // begin with no errors
-	$display("=====================================================");
-    $display("                ALU TESTBENCH");
-    $display("=====================================================");
-    $display(" Time  | A   B   Sel  | Out Z C O E |   Operation");
-    $display("_______|______________|_____________|________________");
+    #1; // Small delay to allow initial propagation
+	  $display("========================================================");
+    $display("                   ALU TESTBENCH");
+    $display("========================================================");
+    $display(" Time  | A   B   Sel  | Out Z C O E |     Operation");
+    $display("_______|______________|_____________|___________________");
         
     // Test 0: ADD _____________________________________________________________________________________________________________
-    sel = `OP_ADD; a = 2'b01; b = 2'b01;#10;  // seting up sim inputs, ans wait for combinational logic to stabilize
+    sel = `OP_ADD; a = 2'b01; b = 2'b01; #10; // seting up sim inputs, ans wait for combinational logic to stabilize
     expected_carry    = 1'b0;                 // setting up expected outputs
     expected_out      = 2'b10;
     expected_overflow = 1'b1;
@@ -55,7 +56,7 @@ module tb_top;
     $display("%4t  | %b %b  %b  | %b  %b %b %b %b | ADD 1 + 1 = 2", $time, a, b, sel, out, zero, carry, overflow, error); // printing results
     if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
       errors = errors | (1 << 0); // if the expected outputs arent the test outputs, mark as an error
-    end 
+    end
         
     // Test 1: ADD with carry __________________________________________________________________________________________________
     sel = `OP_ADD; a = 2'b11; b = 2'b01; #10;
@@ -71,7 +72,7 @@ module tb_top;
     end 
 
     // Test 2: SUB _____________________________________________________________________________________________________________
-    sel = `OP_SUB; a = 2'b11; b = 2'b01; #10;
+    sel = `OP_SUB; a = 2'b11; b = 2'b01;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b10;
     expected_overflow = 1'b0;
@@ -84,7 +85,7 @@ module tb_top;
     end 
 
     // Test 3: AND _____________________________________________________________________________________________________________
-    sel = `OP_AND; a = 2'b11; b = 2'b01; #10;
+    sel = `OP_AND; a = 2'b11; b = 2'b01;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b01;
     expected_overflow = 1'b0;
@@ -97,7 +98,7 @@ module tb_top;
     end 
 
     // Test 4: OR _____________________________________________________________________________________________________________
-    sel = `OP_OR; a = 2'b10; b = 2'b01; #10;
+    sel = `OP_OR; a = 2'b10; b = 2'b01;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b11;
     expected_overflow = 1'b0;
@@ -110,7 +111,7 @@ module tb_top;
     end 
 
     // Test 5: valid opcode ______________________________________________________________________________________________________
-    sel = `OP_AND; a = 2'b10; b = 2'b01; #10; // Valid AND operation
+    sel = `OP_AND; a = 2'b10; b = 2'b01;  #10; // Valid AND operation
     expected_error = 1'b0;
 
     $display("%4t  | %b %b  %b  | %b  %b %b %b %b | Valid op", $time, a, b, sel, out, zero, carry, overflow, error);
@@ -118,8 +119,8 @@ module tb_top;
       errors = errors | (1 << 5);
     end 
 
-    // Test 6: invalid opcode ___________________________________________________________________________________________________
-    sel = 4'b1000; a = 2'b10; b = 2'b01; #10; // Invalid operation
+    // Test 6: invalid opcode     ________________________________________________________________________________________________________
+    sel = 4'b1111; a = 2'b10; b = 2'b01;  #10; // Invalid operation
     expected_error = 1'b1;
 
     $display("%4t  | %b %b  %b  | %b  %b %b %b %b | Invalid op", $time, a, b, sel, out, zero, carry, overflow, error);  
@@ -127,8 +128,8 @@ module tb_top;
       errors = errors | (1 << 6);
     end 
 
-    // Test 7: XOR _____________________________________________________________________________________________________________
-    sel = `OP_XOR; a = 2'b10; b = 2'b01; #10;
+    // Test 7: XOR                ________________________________________________________________________________________________________
+    sel = `OP_XOR; a = 2'b10; b = 2'b01;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b11;
     expected_overflow = 1'b0;
@@ -140,8 +141,8 @@ module tb_top;
       errors = errors | (1 << 7);
     end 
 
-    // Test 8: NOR _____________________________________________________________________________________________________________
-    sel = `OP_NOR; a = 2'b00; b = 2'b00; #10;
+    // Test 8: NOR                ________________________________________________________________________________________________________
+    sel = `OP_NOR; a = 2'b00; b = 2'b00;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b11;
     expected_overflow = 1'b0;
@@ -153,8 +154,8 @@ module tb_top;
       errors = errors | (1 << 8);
     end 
 
-    // Test 9: NAND _____________________________________________________________________________________________________________
-    sel = `OP_NAND; a = 2'b11; b = 2'b01; #10;
+    // Test 9: NAND                 _____________________________________________________________________________________________________
+    sel = `OP_NAND; a = 2'b11; b = 2'b01;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b10;
     expected_overflow = 1'b0;
@@ -166,8 +167,8 @@ module tb_top;
       errors = errors | (1 << 9);
     end 
 
-    // Test 10: XNOR _____________________________________________________________________________________________________________
-    sel = `OP_XNOR; a = 2'b10; b = 2'b01; #10;
+    // Test 10: XNOR                ______________________________________________________________________________________________________
+    sel = `OP_XNOR; a = 2'b10; b = 2'b01;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b00;
     expected_overflow = 1'b0;
@@ -179,8 +180,8 @@ module tb_top;
       errors = errors | (1 << 10);
     end 
 
-    // Test 11: Modulo part 1 _____________________________________________________________________________________________________________
-    sel = `OP_MODULO; a = 2'b11; b = 2'b01; #10;
+    // Test 11: Modulo part 1       ______________________________________________________________________________________________________
+    sel = `OP_MODULO; a = 2'b11; b = 2'b01;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b00; // should be zero
     expected_overflow = 1'b0;
@@ -190,10 +191,10 @@ module tb_top;
     $display("%4t | %b %b  %b  | %b  %b %b %b %b | Modulo of 3/1 = 0", $time, a, b, sel, out, zero, carry, overflow, error);
     if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
       errors = errors | (1 << 11);
-    end
+    end 
 
-    // Test 12: Modulo part 2 _____________________________________________________________________________________________________________
-    sel = `OP_MODULO; a = 2'b11; b = 2'b10; #10;
+    // Test 12: Modulo part 2       ______________________________________________________________________________________________________
+    sel = `OP_MODULO; a = 2'b11; b = 2'b10;  #10;
     expected_carry    = 1'b0;
     expected_out      = 2'b01; // should be one
     expected_overflow = 1'b0;
@@ -205,8 +206,88 @@ module tb_top;
       errors = errors | (1 << 12);
     end 
 
-    $display("=====================================================");
-    $display("_____________________________________________________");
+    // Test 13: Equal to part 1     ______________________________________________________________________________________________________
+    sel = `OP_EQU; a = 2'b11; b = 2'b10;  #10;
+    expected_carry    = 1'b0;
+    expected_out      = 2'b00; // should be false
+    expected_overflow = 1'b0;
+    expected_zero     = 1'b1;
+    expected_error    = 1'b0;
+
+    $display("%4t | %b %b  %b  | %b  %b %b %b %b | Equal to (3 == 2) = false", $time, a, b, sel, out, zero, carry, overflow, error);
+    if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
+      errors = errors | (1 << 13);
+    end 
+
+    // Test 14: Equal to part 2     ______________________________________________________________________________________________________
+    sel = `OP_EQU; a = 2'b11; b = 2'b11;  #10;
+    expected_carry    = 1'b0;
+    expected_out      = 2'b01; // should be true
+    expected_overflow = 1'b0;
+    expected_zero     = 1'b0;
+    expected_error    = 1'b0;
+
+    $display("%4t | %b %b  %b  | %b  %b %b %b %b | Equal to (3 == 3) = true", $time, a, b, sel, out, zero, carry, overflow, error);
+    if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
+      errors = errors | (1 << 14);
+    end 
+
+    // Test 15: Greater than part 1 ______________________________________________________________________________________________________
+    sel = `OP_GREATER_THAN; a = 2'b11; b = 2'b01;  #10;
+    expected_carry    = 1'b0;
+    expected_out      = 2'b01; // should be true
+    expected_overflow = 1'b0;
+    expected_zero     = 1'b0;
+    expected_error    = 1'b0;
+
+    $display("%4t | %b %b  %b  | %b  %b %b %b %b | Greater than (3 > 1) = true", $time, a, b, sel, out, zero, carry, overflow, error);
+    if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
+      errors = errors | (1 << 15);
+    end 
+
+    // Test 16: Greater than part 2 ______________________________________________________________________________________________________
+    sel = `OP_GREATER_THAN; a = 2'b00; b = 2'b01;  #10;
+    expected_carry    = 1'b0;
+    expected_out      = 2'b00; // should be false
+    expected_overflow = 1'b0;
+    expected_zero     = 1'b1;
+    expected_error    = 1'b0;
+
+    $display("%4t | %b %b  %b  | %b  %b %b %b %b | Greater than (0 > 1) = false", $time, a, b, sel, out, zero, carry, overflow, error);
+    if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
+      errors = errors | (1 << 16);
+    end 
+
+    // Test 17: Less than part 1    ______________________________________________________________________________________________________
+    sel = `OP_LESS_THAN; a = 2'b00; b = 2'b01;  #10;
+    expected_carry    = 1'b0;
+    expected_out      = 2'b01; // should be true
+    expected_overflow = 1'b0;
+    expected_zero     = 1'b0;
+    expected_error    = 1'b0;
+
+    $display("%4t | %b %b  %b  | %b  %b %b %b %b | Less than (0 < 1) = true", $time, a, b, sel, out, zero, carry, overflow, error);
+    if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
+      errors = errors | (1 << 17);
+    end 
+
+    // Test 18: Less than part 2    ______________________________________________________________________________________________________
+    sel = `OP_LESS_THAN; a = 2'b10; b = 2'b01;  #10;
+    expected_carry    = 1'b0;
+    expected_out      = 2'b00; // should be false
+    expected_overflow = 1'b0;
+    expected_zero     = 1'b1;
+    expected_error    = 1'b0;
+
+    $display("%4t | %b %b  %b  | %b  %b %b %b %b | Less than (2 < 1) = false", $time, a, b, sel, out, zero, carry, overflow, error);
+    if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
+      errors = errors | (1 << 18);
+    end 
+
+    //____________________________________________________________________________________________________________________________________
+
+    $display("========================================================");
+    $display("________________________________________________________");
     
     // error reporting 
     $display("DETAILS OF ERROR REPORT\n");
@@ -223,15 +304,13 @@ module tb_top;
     end else begin
       $display("TEST SUCCESSFUL, NO ERRORS FOUND");
     end
-    $display("_____________________________________________________\n\n");
+    $display("________________________________________________________\n\n");
     $finish; // end of things being printed
   end   
 endmodule
 
 /* NOTES
 1. creates an instance or a copy of the top module and connects it to the test bench signals
-
-module_port_name(testbench_singal_name), dut = device under test
-
+syntax => module_port_name(testbench_singal_name), dut = device under test
 
 #10 = wait 10 nano seconds
