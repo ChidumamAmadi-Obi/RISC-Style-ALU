@@ -13,7 +13,7 @@ module top(
     output wire      carry,    
     output wire      overflow 
 );
-    reg [2:0] full_result;  // Extra bit for carry
+    reg [2:0] full_result;  // Used to store output + carry bit
 
     always @* begin // combinational logic
         // Default assignments to avoid latches
@@ -36,7 +36,7 @@ module top(
             end
             `OP_OR: begin // or
                 out = a | b;
-                full_result = {1'b0, out}; // No carry for logical ops
+                full_result = {1'b0, out};
             end
             `OP_XOR: begin // xor
                 out = a ^ b;
@@ -64,7 +64,7 @@ module top(
             `OP_LESS_THAN: begin
                 out = a < b;
                 full_result = {1'b0, out};
-            end
+            end //_____________________________________
             `OP_ROTATE_RIGHT: begin // rotate right by b bits
                 case(b)
                     2'b00: out = a;
@@ -76,7 +76,7 @@ module top(
             `OP_ROTATE_LEFT: begin // rotate left by b bits
                 case(b) 
                     2'b00: out = a;
-                    2'b01: out = {a[0], a[1]};  // Rotate left by 1
+                    2'b01: out = {a[0], a[1]};  // Rotate left by 1 (because ALU is only 2 bits ROTATE_RIGHT and ROTATE_LEFT by 1 will look the same)
                     default: out = a; error = 1'b1;
                 endcase
                 full_result = {1'b0, out};
@@ -99,9 +99,6 @@ module top(
 endmodule
 
 /* NOTES
-reg      signals can be assigned values
-wire     can read but cannot assign vals, can only use "assign"
-
 overflow flag => detects signed overflow errors.
     Signed numbers use the MSB for the sign bit – 0 for positive, 1 for negative. 
     In signed arithmetic, overflows happen when:
@@ -115,4 +112,6 @@ overflow flag => detects signed overflow errors.
 
 carry bit => indicates when the result of an arithmetic operation exceeds the available bits in the destination register.
     for example, in a 8bit alu if the result is over 255 the carry bbit is set to 1
+
+carry bit != overflow flag
 */
