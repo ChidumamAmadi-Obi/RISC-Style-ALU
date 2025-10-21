@@ -16,6 +16,7 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
   * Arithmetic: ADD, SUB, INCREMENT, DECREMENT, MODULO <br>
   * Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR, NOT <br>
   * Comparison: EQUAL, GREATER_THAN, LESS_THAN<br>
+  * Barrel Shifting: ROTATE_LEFT, ROTATE_RIGHT <br>
   * Flag Generation: Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results. <br>
 * Advanced Verification: Features a fully automated self-checking testbench with a custom bitmask-based error-tracking system for precise fault isolation.
 
