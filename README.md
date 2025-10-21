@@ -2,7 +2,7 @@
 Configurable ALU capable of performing 16 unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system.
 
 ### Demos
-#### Basic 6-bit counter example
+#### 6-bit counter example
 [](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
 
 ![](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
@@ -44,10 +44,10 @@ Phase 3: System Integration
 - **HDL:** Verilog
 - **FPGA:** Gowin Tang Nano 9K (GW1NR-LV9)
 - **IDE:** VSCode
-- **Extensions:**
-        Verilog-HDL/SystemVerilog/Bluespec SystemVerilog by Masahiro Hiramori
-        WaveTrace by wavetrace
-        Lushay Code by Lushay Labs
+- **Extensions:** <br>
+  - Verilog-HDL/SystemVerilog/Bluespec SystemVerilog by Masahiro Hiramori <br>
+  - WaveTrace by wavetrace <br>
+  - Lushay Code by Lushay Labs <br>
 - **Simulation & Synthesis Tool:** Icarus Verilog
 
 ### Repository Structure
