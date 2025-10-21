@@ -30,10 +30,11 @@ Phase 1: Core ALU _(Complete)_
 - [x] **FPGA Validation** (6-bit counter hardware demo)
       
 Phase 2: Enhanced Operations
-- [ ] **Barrel Shifter** (Logical & arithmetic shifts, rotates)
+- [x] **Barrel Shifter** (Logical & arithmetic shifts, rotates)
 - [x] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN from opcodes)
+- [x] **Modulo**
 - [ ] **Multiplication Unit** (2-bit => 4-bit result with pipeline)
-- [ ] **Division & Modulo** (Restoring division algo)
+- [ ] **Division** (Restoring division algo)
 
 Phase 3: System Integration
 - [ ] **8-bit Scalable Architecture** (Parameterized design)
