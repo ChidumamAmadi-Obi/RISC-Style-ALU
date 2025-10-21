@@ -3,17 +3,16 @@
 `include "ALU_constants.vh"
 
 module top(
-    input wire [1:0] a,        // input a
-    input wire [1:0] b,        // input b
-  	input wire [3:0] sel,      // 4bit Operation selector
+    input wire [`ARG_WIDTH-1:0] a,        // input a
+    input wire [`ARG_WIDTH-1:0] b,        // input b
+  	input wire [`SEL_WIDTH-1:0] sel,      // 5bit Operation selector
 
-    output reg [1:0] out,      // result
+    output reg [`ARG_WIDTH-1:0] out,      // result
   	output reg 	     error,	   // error flag
     output wire      zero,     
     output wire      carry,    
     output wire      overflow 
 );
-    
     reg [2:0] full_result;  // Extra bit for carry
 
     always @* begin // combinational logic
@@ -66,13 +65,29 @@ module top(
                 out = a < b;
                 full_result = {1'b0, out};
             end
+            `OP_ROTATE_RIGHT: begin // rotate right by b bits
+                case(b)
+                    2'b00: out = a;
+                    2'b01: out = {a[0], a[1]};  // Rotate right by 1
+                    default: out = a; error = 1'b1;
+                endcase
+                full_result = {1'b0, out};
+            end
+            `OP_ROTATE_LEFT: begin // rotate left by b bits
+                case(b) 
+                    2'b00: out = a;
+                    2'b01: out = {a[0], a[1]};  // Rotate left by 1
+                    default: out = a; error = 1'b1;
+                endcase
+                full_result = {1'b0, out};
+            end
             `OP_MODULO: begin // modulo
                 out = a % b;
                 full_result = {1'b0, out};
             end
             default: begin // invalid opcode
-                out = 2'b0;
-                full_result = 3'b0;
+                out = 2'b00;
+                full_result = 3'b000;
               	error = 1'b1;
             end
         endcase
@@ -93,5 +108,11 @@ overflow flag => detects signed overflow errors.
     - Adding two negative numbers results in a positive outcome
     - Adding two positive numbers results in a negative outcome
 
+    if both inputs have the same sign bit                   (a[1] == b[1])
+    and if the result has a different sign than the inputs  (out[1] != a[1])
+    and if the ADD or SUB operation is being had            ((sel == `OP_ADD) || (sel == `OP_SUB))
+    there is an overflow
+
 carry bit => indicates when the result of an arithmetic operation exceeds the available bits in the destination register.
     for example, in a 8bit alu if the result is over 255 the carry bbit is set to 1
+*/

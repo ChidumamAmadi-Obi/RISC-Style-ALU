@@ -4,20 +4,21 @@
 // _______________________________________________________________________
 
 `timescale 1ns/1ps // specifies the time units and precision for sim
+
 `include "ALU.v"
 `include "ALU_constants.vh"
 
 module tb_top;
   // first, testbench signals are declared
   // these will be connected to the ALU module
-  reg [1:0] a, b;  // inputs    
-  reg [3:0] sel;
+  reg [`ARG_WIDTH-1:0] a, b;  // inputs    
+  reg [`SEL_WIDTH:0] sel;
   reg error;
-  wire [1:0] out;  // outputs
+  wire [`ARG_WIDTH-1:0] out;  // outputs
   wire zero, carry, overflow;
 
   // expected outputs are declared here
-  reg [1:0] expected_out; 
+  reg [`ARG_WIDTH-1:0] expected_out; 
   reg expected_zero, expected_carry, expected_overflow, expected_error;
 
   // errror handling & reporting
@@ -120,7 +121,7 @@ module tb_top;
     end 
 
     // Test 6: invalid opcode     ________________________________________________________________________________________________________
-    sel = 4'b1111; a = 2'b10; b = 2'b01;  #10; // Invalid operation
+    sel = 4'bxxxx; a = 2'b10; b = 2'b01;  #10; // Invalid operation
     expected_error = 1'b1;
 
     $display("%4t  | %b %b  %b  | %b  %b %b %b %b | Invalid op", $time, a, b, sel, out, zero, carry, overflow, error);  
@@ -284,6 +285,19 @@ module tb_top;
       errors = errors | (1 << 18);
     end 
 
+    // Test 19: Barrel shift        ______________________________________________________________________________________________________
+    sel = `OP_ROTATE_RIGHT; a = 2'b10; b = 2'b01;  #10;
+    expected_carry    = 1'b0;
+    expected_out      = 2'b01; 
+    expected_overflow = 1'b0;
+    expected_zero     = 1'b0;
+    expected_error    = 1'b0;
+
+    $display("%4t | %b %b  %b  | %b  %b %b %b %b | rotate right (10 >> 1) = 01", $time, a, b, sel, out, zero, carry, overflow, error);
+    if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
+      errors = errors | (1 << 19);
+    end 
+
     //____________________________________________________________________________________________________________________________________
 
     $display("========================================================");
@@ -294,7 +308,7 @@ module tb_top;
     for(i = 0; i < `TESTS ; i = i + 1) begin #10 // loops through all tests
       is_there_an_error = (errors >> i) & 1;     // Check errors in each test yb checking if bit is set
       if (is_there_an_error) begin
-        $display("FAILED TEST NUMBER %0d", i+1);
+        $display("FAILED TEST NUMBER %0d", i);
         no_of_errors = no_of_errors+1;           // adds up errors
       end
     end
@@ -314,3 +328,5 @@ endmodule
 syntax => module_port_name(testbench_singal_name), dut = device under test
 
 #10 = wait 10 nano seconds
+
+*/
