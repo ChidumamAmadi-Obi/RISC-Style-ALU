@@ -3,22 +3,24 @@
 // uses bitmask (errors register) to track when specific tasks have faild
 // _______________________________________________________________________
 
-`timescale 1ns/1ps // specifies the time units and precision for sim
 
 `include "ALU.v"
 `include "ALU_constants.vh"
 
+`timescale 1ns/1ps // specifies the time units and precision for sim
+
 module tb_top;
   // first, testbench signals are declared
   // these will be connected to the ALU module
-  reg [`ARG_WIDTH-1:0] a, b;  // inputs    
+  reg [`OPERAND_WIDTH-1:0] a, b;  // operands  
   reg [`SEL_WIDTH:0] sel;
   reg error;
-  wire [`ARG_WIDTH-1:0] out;  // outputs
+
+  wire [`OPERAND_WIDTH-1:0] out, hi_reg, low_reg;  // outputs
   wire zero, carry, overflow;
 
   // expected outputs are declared here
-  reg [`ARG_WIDTH-1:0] expected_out; 
+  reg [`OPERAND_WIDTH-1:0] expected_out, expected_hi_reg, expected_low_reg; 
   reg expected_zero, expected_carry, expected_overflow, expected_error;
 
   // errror handling & reporting
@@ -29,6 +31,8 @@ module tb_top;
   top dut ( // instantiating the top module 1.
     .a(a), 
     .b(b), 
+    .hi_reg(hi_reg),
+    .low_reg(low_reg),
     .sel(sel),
     .out(out), 
     .zero(zero), 
@@ -297,6 +301,22 @@ module tb_top;
     if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow)) begin
       errors = errors | (1 << 19);
     end 
+
+    // Test 20: Multiplication       ______________________________________________________________________________________________________
+    sel = `OP_MULT; a = 2'b11; b = 2'b11; #10
+    expected_carry    = 1'b0;
+    expected_out      = 2'b01;
+    expected_overflow = 1'b0;
+    expected_zero     = 1'b0;
+    expected_error    = 1'b0;
+    expected_hi_reg   = 2'b10; // full mult result is split between registers hi_reg and low_reg
+    expected_low_reg  = 2'b01;
+
+    $display("%4t | %b %b  %b  | %b  %b %b %b %b | %b %b | Mult 3 * 3 = 9", $time, a, b, sel, out, zero, carry, overflow, error, hi_reg, low_reg);
+    if ((out !== expected_out) || (zero !== expected_zero) || (carry !== expected_carry) || (overflow !== expected_overflow) || (hi_reg !== expected_hi_reg) || (low_reg !== expected_low_reg)) begin
+      errors = errors | (1 << 20);
+    end 
+
 
     //____________________________________________________________________________________________________________________________________
 

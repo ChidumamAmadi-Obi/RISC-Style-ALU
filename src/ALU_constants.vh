@@ -20,11 +20,14 @@
 
 `define OP_MODULO           5'b01110
 `define OP_DIVIDE           5'b01111
-`define OP_MULTIPLY         5'b10000
+`define OP_MULT             5'b10000
+`define OP_MFHI             5'b10001 // move from high register
+`define OP_MFLO             5'b10010 // move from low register
 
 // CONFIG
-`define TESTS 20 // number of tests in ALU_tb.v
-`define ARG_WIDTH 2 // define bit length 
+`define TESTS 21               // number of tests in ALU_tb.v
+`define OPERAND_WIDTH 2             // define bit length 
+`define MULT_WIDTH `ARG_WIDTH*2 // multiplication result
 `define SEL_WIDTH 5 
 
 `define MAX_BARREL_SHIFT 1 // alu can currently only bit shift once
