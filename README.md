@@ -1,4 +1,4 @@
-# RISC_Style ALU on the Tang Nano 9k FPGA (🚧 In Progress)
+# RISC-Style ALU on Tang Nano 9k FPGA (🚧 In Progress)
 Configurable ALU capable of performing 16 unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system.
 
 ### Demos
@@ -13,7 +13,7 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
 ### Features
 * Parameterized Design: Easily configurable data width for scalability.
 * Comprehensive Operation Set: Supports 16 operations:<br>
-  * Arithmetic: ADD, SUB, INCREMENT, DECREMENT, MODULO <br>
+  * Arithmetic: ADD, SUB, MULTIPLY, MODULO <br>
   * Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR, NOT <br>
   * Comparison: EQUAL, GREATER_THAN, LESS_THAN<br>
   * Barrel Shifting: ROTATE_LEFT, ROTATE_RIGHT <br>
