@@ -1,4 +1,4 @@
-# RISC_Style on the Tang Nano 9k FPGA (🚧 In Progress)
+# RISC_Style ALU on the Tang Nano 9k FPGA (🚧 In Progress)
 Configurable ALU capable of performing 16 unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system.
 
 ### Demos
