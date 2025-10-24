@@ -8,8 +8,9 @@ module top(
   	input wire [`SEL_WIDTH-1:0] sel,      // 5-bit Operation selector
 
     output reg [`OPERAND_WIDTH-1:0] out,         // result
-    output reg [`OPERAND_WIDTH-1:0] hi_reg,      // for lower bits of multiplication result
-    output reg [`OPERAND_WIDTH-1:0] low_reg,     // for higher bits of multiplication result
+    output reg [`OPERAND_WIDTH-1:0] hi_reg,      // hi lo reg for multiplication results
+    output reg [`OPERAND_WIDTH-1:0] low_reg, 
+
   	output reg 	     error,	 
     output wire      zero,     
     output wire      carry,    
@@ -86,13 +87,18 @@ module top(
                 full_result = {1'b0, out};
             end //_____________________________________
             `OP_MULT: begin
-                {hi_reg , low_reg} = a * b; // store the result of a*b in two registers
+                {full_result[2] , hi_reg , low_reg} = a * b; // store the result of a*b in two registers
                 out = low_reg; // output lowest bits of multiplication result
             end
-            `OP_MODULO: begin // modulo
-                out = a % b;
-                full_result = {1'b0, out};
-            end
+            `OP_DIVIDE: begin // divide
+                if (b == 2'b00) begin
+                    out = 2'b00;
+                    error = 1'b1;
+                end else begin
+                    full_result = a / b;
+                end
+                    out = full_result[1:0];
+                end
             `OP_MFLO: out = low_reg; 
             `OP_MFHI: out = hi_reg; 
             default: begin // invalid opcode
