@@ -12,8 +12,8 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
 
 ### Features
 * Parameterized Design: Easily configurable data width for scalability.
-* Comprehensive Operation Set: Supports 16 operations:<br>
-  * Arithmetic: ADD, SUB, MULTIPLY, MODULO <br>
+* Comprehensive Operation Set: Supports 16 operations like:<br>
+  * Arithmetic: ADD, SUB, MULTIPLY,DIVIDE <br>
   * Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR, NOT <br>
   * Comparison: EQUAL, GREATER_THAN, LESS_THAN<br>
   * Barrel Shifting: ROTATE_LEFT, ROTATE_RIGHT <br>
@@ -34,8 +34,7 @@ Phase 2: Enhanced Operations
 - [x] **Barrel Shifter** (Logical & arithmetic shifts, rotates)
 - [x] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN from opcodes)
 - [x] **Modulo**
-- [ ] **Multiplication Unit** (2-bit => 4-bit result with pipeline)
-- [ ] **Division** (Restoring division algo)
+- [x] **Multiplication & Division Unit** (2-bit => 4-bit multiplication result with pipeline)
 
 Phase 3: System Integration
 - [ ] **8-bit Scalable Architecture** (Parameterized design)
