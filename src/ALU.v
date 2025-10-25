@@ -1,15 +1,12 @@
 // 2 bit ALU so far, will upgrade to 8 or 32bit
-
 `include "ALU_constants.vh"
 
 module top(
     input wire [`OPERAND_WIDTH-1:0] a,        // input a
     input wire [`OPERAND_WIDTH-1:0] b,        // input b
-  	input wire [`SEL_WIDTH-1:0] sel,      // 5-bit Operation selector
+    input wire [`SEL_WIDTH-1:0] sel,          // 5-bit Operation selector
 
     output reg [`OPERAND_WIDTH-1:0] out,         // result
-    output reg [`OPERAND_WIDTH-1:0] hi_reg,      // hi lo reg for multiplication results
-    output reg [`OPERAND_WIDTH-1:0] low_reg, 
 
   	output reg 	     error,	 
     output wire      zero,     
@@ -17,23 +14,25 @@ module top(
     output wire      overflow 
 );
     reg [`OPERAND_WIDTH:0] full_result;     // Extra bit for carry
+    reg [`OPERAND_WIDTH-1:0] hi_reg;        // hi lo reg for multiplication results
+    reg [`OPERAND_WIDTH-1:0] low_reg; 
 
     always @* begin // combinational logic
         // Default assignments to avoid latches
-        hi_reg = 2'b0;
-        low_reg = 2'b0;
-        out = 2'b0;
-        full_result = 3'b0;
+        hi_reg =        `OPERAND_WIDTH'b0;
+        low_reg =       `OPERAND_WIDTH'b0;
+        out =           `OPERAND_WIDTH'b0;
+        full_result =   `FULL_RESULT_WIDTH'b0;
         error = 1'b0;  // keep 0 when no error with sel - all combinations are valid
         
         case (sel)
             `OP_ADD: begin   // if adding
                 full_result = a + b;
-                out = full_result[1:0];
+                out = full_result[`OPERAND_WIDTH-1:0];
             end
             `OP_SUB: begin   // if subtracting
-                full_result = a - b;
-                out = full_result[1:0];
+              full_result = $unsigned(a - b);
+                out = full_result[`OPERAND_WIDTH-1:0];
             end //_____________________________________
             `OP_AND: begin // and
                 out = a & b;
@@ -72,47 +71,60 @@ module top(
             end
             `OP_ROTATE_RIGHT: begin // rotate right by b bits
                 case(b)
-                    2'b00:      out = a;
-                    2'b01:      out = {a[0], a[1]}; 
-                    default:    out = a; error = 1'b1; 
+                    3'b000:   out = a;
+                    3'b001:   out = {a[0], a[7], a[6] ,a[5], a[4], a[3], a[2], a[1]}; 
+                    3'b010:   out = {a[1], a[0], a[7] ,a[6], a[5], a[4], a[3], a[2]};        
+                    3'b011:   out = {a[2], a[1], a[0] ,a[7], a[6], a[5], a[4], a[3]};
+                    3'b100:   out = {a[3], a[2], a[1] ,a[0], a[7], a[6], a[5], a[4]};
+                    3'b101:   out = {a[4], a[3], a[2] ,a[1], a[0], a[7], a[6], a[5]};
+                    3'b110:   out = {a[5], a[4], a[3] ,a[2], a[1], a[0], a[7], a[6]};
+                    3'b111:   out = {a[6], a[5], a[4] ,a[3], a[2], a[1], a[0], a[7]};
+                    default: begin  out = a; error = 1'b1; end
                 endcase
                 full_result = {1'b0, out};
             end
             `OP_ROTATE_LEFT: begin // rotate left by b bits
                 case(b) 
-                    2'b00:      out = a;
-                    2'b01:      out = {a[0], a[1]};   
-                    default:    out = a; error = 1'b1; 
+                    3'b000:   out = a;
+                    3'b001:   out = {a[6], a[5], a[4], a[3], a[2], a[1], a[0], a[7]};   
+                    3'b010:   out = {a[5], a[4], a[3], a[2], a[1], a[0], a[7], a[6]};
+                    3'b011:   out = {a[4], a[3], a[2], a[1], a[0], a[7], a[6], a[5]}; 
+                    3'b100:   out = {a[3], a[2], a[1], a[0], a[7], a[6], a[5], a[4]}; 
+                    3'b101:   out = {a[2], a[1], a[0], a[7], a[6], a[5], a[4], a[3]};
+                    3'b110:   out = {a[1], a[0], a[4], a[6], a[5], a[4], a[3], a[2]}; 
+                    3'b111:   out = {a[0], a[5], a[4], a[5], a[4], a[3], a[2], a[1]};
+                    default: begin  out = a; error = 1'b1; end
                 endcase
                 full_result = {1'b0, out};
             end //_____________________________________
             `OP_MULT: begin
-                {full_result[2] , hi_reg , low_reg} = a * b; // store the result of a*b in two registers
+                {full_result[`OPERAND_WIDTH] , hi_reg , low_reg} = a * b; // store the result of a*b in two registers
                 out = low_reg; // output lowest bits of multiplication result
             end
             `OP_DIVIDE: begin // divide
                 if (b == 2'b00) begin
-                    out = 2'b00;
+                    out = `OPERAND_WIDTH'b0;
                     error = 1'b1;
-                end else begin
+                end else begin 
                     full_result = a / b;
                 end
-                    out = full_result[1:0];
-                end
+                    out = full_result[`FULL_RESULT_WIDTH:0];
+            end
             `OP_MFLO: out = low_reg; 
             `OP_MFHI: out = hi_reg; 
             default: begin // invalid opcode
-                out = 2'b00;
-                full_result = 3'b000;
+                out = `OPERAND_WIDTH'b0;
+                full_result = `FULL_RESULT_WIDTH'b0;
               	error = 1'b1;
             end
         endcase
     end
 
-    assign zero = (out == 2'b0);
-    assign carry = full_result[2];
-    assign overflow = (a[1] == b[1]) && (out[1] != a[1]) && ((sel == `OP_ADD) || (sel == `OP_SUB));
-endmodule
+    assign zero = (out == `OPERAND_WIDTH'b0);
+    assign carry = full_result[`OPERAND_WIDTH];
+    assign overflow = (a[`OPERAND_WIDTH-1] == b[`OPERAND_WIDTH-1]) && (out[`OPERAND_WIDTH-1] != a[`OPERAND_WIDTH-1]) && ((sel == `OP_ADD) || (sel == `OP_SUB));
+    assign led_array = ~sel; // display opcode on onboard led array
+endmodule 
 
 /* NOTES
 reg      signals can be assigned values
