@@ -8,7 +8,7 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
 ![](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
 
 #### ALU Testbench Example Output
-<img width="682" height="560" alt="image" src="https://github.com/user-attachments/assets/19c8f14d-b32d-4556-b3c8-e866fd7687b4" />
+<img width="1031" height="880" alt="image" src="https://github.com/user-attachments/assets/4ac05799-ecb9-4851-9441-e90c56de1fff" />
 
 ### Features
 * Parameterized Design: Easily configurable data width for scalability.
@@ -19,6 +19,24 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
   * Barrel Shifting: ROTATE_LEFT, ROTATE_RIGHT <br>
   * Flag Generation: Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results. <br>
 * Advanced Verification: Features a fully automated self-checking testbench with a custom bitmask-based error-tracking system for precise fault isolation.
+
+### Tools
+- **HDL:** Verilog
+- **FPGA:** Gowin Tang Nano 9K (GW1NR-LV9)
+- **IDE:** VSCode
+- **Extensions:** <br>
+  - Verilog-HDL/SystemVerilog/Bluespec SystemVerilog by Masahiro Hiramori <br>
+  - WaveTrace by wavetrace <br>
+  - Lushay Code by Lushay Labs <br>
+- **Simulation & Synthesis Tool:** Icarus Verilog
+
+### Repository Structure
+```
+        /src        -> Verilog source files
+        /tb         -> Testbench files
+        /doc        -> Documentation, block diagrams
+        /constraints-> Physical constraint files (.cst)
+```
 
 ### Roadmap
 Phase 0: Validate Design Flow
@@ -38,26 +56,11 @@ Phase 2: Enhanced Operations
 
 Phase 3: System Integration
 - [x] **8-bit Scalable Architecture** (Parameterized design)
-- [ ] **Control Unit Integration** (Instruction decode & sequencing)
 - [ ] **Seven-Segment Display Driver** (Hex output for debugging)
 
-### Tools
-- **HDL:** Verilog
-- **FPGA:** Gowin Tang Nano 9K (GW1NR-LV9)
-- **IDE:** VSCode
-- **Extensions:** <br>
-  - Verilog-HDL/SystemVerilog/Bluespec SystemVerilog by Masahiro Hiramori <br>
-  - WaveTrace by wavetrace <br>
-  - Lushay Code by Lushay Labs <br>
-- **Simulation & Synthesis Tool:** Icarus Verilog
+Future Improvements:
+- [ ] **Control Unit Integration** (Instruction decode & sequencing)
 
-### Repository Structure
-```
-        /src        -> Verilog source files
-        /tb         -> Testbench files
-        /doc        -> Documentation, block diagrams
-        /constraints-> Physical constraint files (.cst)
-```
 ### Useful Links
 [Verilog Cheat Sheet](https://cheatsheetshero.com/user/all/476-verilog-cheatsheet.pdf) <br>
 [Tang Nano 9k Information & Resources](https://wiki.sipeed.com/hardware/en/tang/Tang-Nano-9K/Nano-9K.html) <br>
