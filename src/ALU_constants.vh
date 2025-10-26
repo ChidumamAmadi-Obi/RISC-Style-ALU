@@ -24,11 +24,9 @@
 `define OP_MFLO             5'b10001 // move from low register
 
 // CONFIG
-`define TESTS               21              // number of tests in ALU_tb.v
 `define OPERAND_WIDTH       8               // define bit length 
 `define FULL_RESULT_WIDTH   `OPERAND_WIDTH+1
 `define SEL_WIDTH           5  
-
-`define MAX_BARREL_SHIFT    7               // alu can currently only bit shift once
+`define TESTS               22
 
 `endif

@@ -1,10 +1,13 @@
-// 2 bit ALU so far, will upgrade to 8 or 32bit
+//_____________________________________________________
+//      8-bit ALU, handles unsigned numbers
+//_____________________________________________________
+
 `include "ALU_constants.vh"
 
 module top(
     input wire [`OPERAND_WIDTH-1:0] a,        // input a
     input wire [`OPERAND_WIDTH-1:0] b,        // input b
-    input wire [`SEL_WIDTH-1:0] sel,          // 5-bit Operation selector
+    input wire [`SEL_WIDTH-1:0] sel,          // operation selector
 
     output reg [`OPERAND_WIDTH-1:0] out,         // result
 
@@ -13,16 +16,16 @@ module top(
     output wire      carry,    
     output wire      overflow 
 );
-    reg [`OPERAND_WIDTH:0] full_result;     // Extra bit for carry
-    reg [`OPERAND_WIDTH-1:0] hi_reg;        // hi lo reg for multiplication results
+    reg [`FULL_RESULT_WIDTH-1:0] full_result;     // Extra bit for carry
+    reg [`OPERAND_WIDTH-1:0] hi_reg;        // internal registers for multiplication results
     reg [`OPERAND_WIDTH-1:0] low_reg; 
 
     always @* begin // combinational logic
         // Default assignments to avoid latches
-        hi_reg =        `OPERAND_WIDTH'b0;
-        low_reg =       `OPERAND_WIDTH'b0;
-        out =           `OPERAND_WIDTH'b0;
-        full_result =   `FULL_RESULT_WIDTH'b0;
+        hi_reg =        `OPERAND_WIDTH'b00000000;
+        low_reg =       `OPERAND_WIDTH'b00000000;
+        out =           `OPERAND_WIDTH'b00000000;
+        full_result =   `FULL_RESULT_WIDTH'b000000000;
         error = 1'b0;  // keep 0 when no error with sel - all combinations are valid
         
         case (sel)
@@ -31,7 +34,7 @@ module top(
                 out = full_result[`OPERAND_WIDTH-1:0];
             end
             `OP_SUB: begin   // if subtracting
-              full_result = $unsigned(a - b);
+              full_result = a - b;
                 out = full_result[`OPERAND_WIDTH-1:0];
             end //_____________________________________
             `OP_AND: begin // and
@@ -61,11 +64,11 @@ module top(
             `OP_EQU: begin // equal to
                 out = a == b;
             end
-            `OP_GREATER_THAN: begin
+            `OP_GREATER_THAN: begin //geater than
                 out = a > b;
                 full_result = {1'b0, out};
             end
-            `OP_LESS_THAN: begin
+            `OP_LESS_THAN: begin // less than
                 out = a < b;
                 full_result = {1'b0, out};
             end
@@ -91,8 +94,8 @@ module top(
                     3'b011:   out = {a[4], a[3], a[2], a[1], a[0], a[7], a[6], a[5]}; 
                     3'b100:   out = {a[3], a[2], a[1], a[0], a[7], a[6], a[5], a[4]}; 
                     3'b101:   out = {a[2], a[1], a[0], a[7], a[6], a[5], a[4], a[3]};
-                    3'b110:   out = {a[1], a[0], a[4], a[6], a[5], a[4], a[3], a[2]}; 
-                    3'b111:   out = {a[0], a[5], a[4], a[5], a[4], a[3], a[2], a[1]};
+                    3'b110:   out = {a[1], a[0], a[7], a[6], a[5], a[4], a[3], a[2]}; 
+                    3'b111:   out = {a[0], a[7], a[6], a[5], a[4], a[3], a[2], a[1]};
                     default: begin  out = a; error = 1'b1; end
                 endcase
                 full_result = {1'b0, out};
@@ -102,13 +105,13 @@ module top(
                 out = low_reg; // output lowest bits of multiplication result
             end
             `OP_DIVIDE: begin // divide
-                if (b == 2'b00) begin
-                    out = `OPERAND_WIDTH'b0;
+                if (b == `OPERAND_WIDTH'b00000000) begin
+                    out = `OPERAND_WIDTH'b00000000;
                     error = 1'b1;
                 end else begin 
                     full_result = a / b;
                 end
-                    out = full_result[`FULL_RESULT_WIDTH:0];
+                    out = full_result[`OPERAND_WIDTH-1:0];
             end
             `OP_MFLO: out = low_reg; 
             `OP_MFHI: out = hi_reg; 
