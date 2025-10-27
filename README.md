@@ -1,4 +1,4 @@
-# RISC-Style ALU on Tang Nano 9k FPGA (🚧 In Progress)
+# RISC-Style ALU on Tang Nano 9k FPGA
 Configurable ALU capable of performing 16 unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system.
 
 ### Demos
@@ -56,6 +56,7 @@ Phase 2: Enhanced Operations
 
 Phase 3: System Integration
 - [x] **8-bit Scalable Architecture** (Parameterized design)
+- [ ] **Synthesize** (Run full ALU on FPGA hardware)
 - [ ] **Seven-Segment Display Driver** (Hex output for debugging)
 
 Future Improvements:
