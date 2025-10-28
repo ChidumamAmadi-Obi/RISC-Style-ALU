@@ -10,16 +10,21 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
 #### ALU Testbench Example Output
 <img width="1031" height="880" alt="image" src="https://github.com/user-attachments/assets/4ac05799-ecb9-4851-9441-e90c56de1fff" />
 
+#### Waveform Generated 
+<img width="1847" height="429" alt="image" src="https://github.com/user-attachments/assets/59e6dc6a-8352-4552-b55d-2952295461fd" />
+
 ### Features
-* Parameterized Design: Easily configurable data width for scalability.
-* Comprehensive Operation Set: Supports 16 operations like:<br>
-  * Arithmetic: ADD, SUB, MULTIPLY,DIVIDE <br>
+* **Parameterized Design:** Scalable data width (default 8-bit) for easy reuse and testing.
+* **Comprehensive Operation Set:** Supports 16 operations like:<br>
+  * Arithmetic: ADD, SUB, MULTIPLY, DIVIDE <br>
   * Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR <br>
   * Comparison: EQUAL, GREATER_THAN, LESS_THAN<br>
   * Barrel Shifting: ROTATE_LEFT, ROTATE_RIGHT <br>
-  * Flag Generation: Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results. <br>
-* Advanced Verification: Features a fully automated self-checking testbench with a custom bitmask-based error-tracking system for precise fault isolation.
-
+* **Full Flag Generation:** Correctly asserts Zero, Carry, Overflow, and Error flags based on operation results. <br>
+* **Advanced Verification:** Features a fully automated self-checking testbench with:
+  * Custom bitmask-based error-tracking system for precise fault isolation.
+  * Clear pass/fail report for reliability.
+  
 ### Tools
 - **HDL:** Verilog
 - **FPGA:** Gowin Tang Nano 9K (GW1NR-LV9)
@@ -29,6 +34,31 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
   - WaveTrace by wavetrace <br>
   - Lushay Code by Lushay Labs <br>
 - **Simulation & Synthesis Tool:** Icarus Verilog
+
+
+
+### Quick Start
+
+1. Clone repo
+
+```bash
+    git clone https://github.com/chidumamamadi-obi/risc-style-alu.git
+    cd risc-style-alu
+```
+
+2. Run Testbench with [EDAPlayground](https://www.edaplayground.com/) or VSCode (requires Icarus Verilog)
+
+```bash
+    cd tb
+    iverilog -o ALU_tb ALU_tb.v
+    vvp ALU_tb
+```
+*^ will execute the self-checking testbench and print the results to the console.*
+
+3. View Waveforms
+```bash
+    open alu_tb.vcd # This will open in GTKWave or your default viewer
+```
 
 ### Repository Structure
 ```
