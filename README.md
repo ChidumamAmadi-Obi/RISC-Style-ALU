@@ -1,11 +1,10 @@
 # RISC-Style ALU on Tang Nano 9k FPGA
-Configurable ALU capable of performing 16 unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system.
+Configurable ALU capable of performing 16+ unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system. This project demonstrates a full digital design workflow from simulation to synthesis.
 
 ### Demos
-#### 6-bit counter example
-[](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
-
-![](https://github.com/user-attachments/assets/b11a7958-a44b-474c-aaa3-fad2576f609f)
+#### 4-Bit Demo with 7-Seg Display
+[](https://github.com/user-attachments/assets/7767e430-2b86-4e6b-9053-a797b878ebaf)
+![](https://github.com/user-attachments/assets/7767e430-2b86-4e6b-9053-a797b878ebaf)
 
 #### ALU Testbench Example Output
 <img width="1031" height="880" alt="image" src="https://github.com/user-attachments/assets/4ac05799-ecb9-4851-9441-e90c56de1fff" />
@@ -24,6 +23,7 @@ Configurable ALU capable of performing 16 unique arithmetic, logic, and comparat
 * **Advanced Verification:** Features a fully automated self-checking testbench with:
   * Custom bitmask-based error-tracking system for precise fault isolation.
   * Clear pass/fail report for reliability.
+* **FPGA Validated:** Successfully synthesized and run on a Gowin Tang Nano 9K, with results displayed via a seven-segment display driver.
   
 ### Tools
 - **HDL:** Verilog
