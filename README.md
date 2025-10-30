@@ -4,7 +4,6 @@ Configurable ALU capable of performing 16+ unique arithmetic, logic, and compara
 ### Demos
 #### 4-Bit Demo with 7-Seg Display
 [](https://github.com/user-attachments/assets/7767e430-2b86-4e6b-9053-a797b878ebaf)
-![](https://github.com/user-attachments/assets/7767e430-2b86-4e6b-9053-a797b878ebaf)
 
 #### ALU Testbench Example Output
 <img width="1031" height="880" alt="image" src="https://github.com/user-attachments/assets/4ac05799-ecb9-4851-9441-e90c56de1fff" />
