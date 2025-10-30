@@ -1,9 +1,11 @@
 # RISC-Style ALU on Tang Nano 9k FPGA
-Configurable ALU capable of performing 16+ unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system. This project demonstrates a full digital design workflow from simulation to synthesis.
+Configurable ALU in Verilog capable of performing 16 arithmetic, logic, and comparative operations. Equiped with robust, self-checking testbench system.
 
 ### Demos
 #### 4-Bit Demo with 7-Seg Display [(code here)](https://github.com/ChidumamAmadi-Obi/RISC-Style-ALU/tree/main/demo)
 [](https://github.com/user-attachments/assets/7767e430-2b86-4e6b-9053-a797b878ebaf)
+
+![](https://github.com/user-attachments/assets/7767e430-2b86-4e6b-9053-a797b878ebaf)
 
 #### ALU Testbench Example Output
 <img width="1031" height="880" alt="image" src="https://github.com/user-attachments/assets/4ac05799-ecb9-4851-9441-e90c56de1fff" />
@@ -23,7 +25,16 @@ Configurable ALU capable of performing 16+ unique arithmetic, logic, and compara
   * Custom bitmask-based error-tracking system for precise fault isolation.
   * Clear pass/fail report for reliability.
 * **FPGA Validated:** Successfully synthesized and run on a Gowin Tang Nano 9K, with results displayed via a seven-segment display driver.
-  
+
+### Operations Supported
+|      Type     | Operations |
+|---------------|------------|
+| Arithmetic    | ADD, SUB, MULT, DIVIDE |
+| Logical       | AND, OR, XOR, NAND, NOR, XNOR |
+| Comparison    | EQU, GREATER_THAN, LESS_THAN |
+| Shift/Rotate  | ROTATE_LEFT, ROTATE_RIGHT |
+| Data Transfer | MFHI, MFLO |
+
 ### Tools
 - **HDL:** Verilog
 - **FPGA:** Gowin Tang Nano 9K (GW1NR-LV9)
@@ -69,7 +80,7 @@ Configurable ALU capable of performing 16+ unique arithmetic, logic, and compara
 ```
 
 ### Roadmap
-Phase 0: Validate Design Flow
+Phase 0: Validate Design Flow _(Complete)_
 - [x] **FPGA Hardware Implementation** (6-bit counter)
 
 Phase 1: Core ALU _(Complete)_
@@ -78,13 +89,12 @@ Phase 1: Core ALU _(Complete)_
 - [x] **Verification Suite** (Self-checking testbench)
 - [x] **FPGA Validation** (6-bit counter hardware demo)
       
-Phase 2: Enhanced Operations
+Phase 2: Enhanced Operations _(Complete)_
 - [x] **Barrel Shifter** (Logical & arithmetic shifts, rotates)
-- [x] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN from opcodes)
-- [x] **Modulo**
-- [x] **Multiplication & Division Unit** (2-bit => 4-bit multiplication result with pipeline)
+- [x] **Comparison Unit** (EQU, GREATER_THAN, LESS_THAN)
+- [x] **Multiplication & Division Unit** (2x bit multiplication result)
 
-Phase 3: System Integration
+Phase 3: System Integration _(Complete)_
 - [x] **8-bit Scalable Architecture** (Parameterized design)
 - [x] **Synthesize** (Run full ALU on FPGA hardware)
 - [x] **Seven-Segment Display Driver** (Hex output for debugging)
