@@ -2,7 +2,7 @@
 Configurable ALU capable of performing 16+ unique arithmetic, logic, and comparative operations. With robust, self-checking testbench system. This project demonstrates a full digital design workflow from simulation to synthesis.
 
 ### Demos
-#### 4-Bit Demo with 7-Seg Display
+#### 4-Bit Demo with 7-Seg Display [(code here)](https://github.com/ChidumamAmadi-Obi/RISC-Style-ALU/tree/main/demo)
 [](https://github.com/user-attachments/assets/7767e430-2b86-4e6b-9053-a797b878ebaf)
 
 #### ALU Testbench Example Output
