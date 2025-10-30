@@ -1,5 +1,5 @@
 //_____________________________________________________
-//      8-bit ALU, handles unsigned numbers
+//      4-bit ALU with 7-seg Display output
 //_____________________________________________________
 
 `include "ALU_constants.vh"
