@@ -75,7 +75,6 @@ Configurable ALU in Verilog capable of performing 16 arithmetic, logic, and comp
         /src        -> Verilog source files
         /tb         -> Testbench files
         /doc        -> Documentation, block diagrams
-        /constraints-> Physical constraint files (.cst)
         /demo       -> Verilog source files synthesized on the FPGA
 ```
 
