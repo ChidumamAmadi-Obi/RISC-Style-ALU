@@ -1,5 +1,5 @@
 # RISC-Style ALU on Tang Nano 9k FPGA
-Configurable ALU in Verilog capable of performing 16 arithmetic, logic, and comparative operations. Equiped with robust, self-checking testbench system.
+ALU in Verilog with 16 arithmetic, logic, and comparative operations. Equiped with robust, self-checking testbench system.
 
 ### Demos
 #### 4-Bit Demo with 7-Seg Display [(code here)](https://github.com/ChidumamAmadi-Obi/RISC-Style-ALU/tree/main/demo)
@@ -44,31 +44,6 @@ Configurable ALU in Verilog capable of performing 16 arithmetic, logic, and comp
   - WaveTrace by wavetrace <br>
   - Lushay Code by Lushay Labs <br>
 - **Simulation & Synthesis Tool:** Icarus Verilog
-
-
-
-### Quick Start
-
-1. Clone repo
-
-```bash
-    git clone https://github.com/chidumamamadi-obi/risc-style-alu.git
-    cd risc-style-alu
-```
-
-2. Run Testbench with [EDAPlayground](https://www.edaplayground.com/) or VSCode (requires Icarus Verilog)
-
-```bash
-    cd tb
-    iverilog -o ALU_tb ALU_tb.v
-    vvp ALU_tb
-```
-*^ will execute the self-checking testbench and print the results to the console.*
-
-3. View Waveforms
-```bash
-    open alu_tb.vcd # This will open in GTKWave or your default viewer
-```
 
 ### Repository Structure
 ```
