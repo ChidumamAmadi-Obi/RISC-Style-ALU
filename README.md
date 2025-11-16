@@ -1,5 +1,5 @@
 # RISC-Style ALU on Tang Nano 9k FPGA
-ALU in Verilog with 16 arithmetic, logic, and comparative operations. Equiped with robust, self-checking testbench system.
+ALU in Verilog with 16 arithmetic, logic, and comparative operations. Equiped with self-checking testbench system.
 
 ### Demos
 #### 4-Bit Demo with 7-Seg Display [(code here)](https://github.com/ChidumamAmadi-Obi/RISC-Style-ALU/tree/main/demo)
@@ -14,7 +14,7 @@ ALU in Verilog with 16 arithmetic, logic, and comparative operations. Equiped wi
 <img width="1847" height="429" alt="image" src="https://github.com/user-attachments/assets/59e6dc6a-8352-4552-b55d-2952295461fd" />
 
 ### Features
-* **Parameterized Design:** Scalable data width (default 8-bit) for easy reuse and testing.
+* **Scalable data width:** (default 8-bit) for easy reuse and testing.
 * **Comprehensive Operation Set:** Supports 16 operations like:<br>
   * Arithmetic: ADD, SUB, MULTIPLY, DIVIDE <br>
   * Bitwise Logic: AND, NAND, OR, NOR, XOR, XNOR <br>
