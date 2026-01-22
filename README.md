@@ -47,7 +47,7 @@ ALU in Verilog with 16 arithmetic, logic, and comparative operations. Equiped wi
 
 ### Repository Structure
 ```
-        /src        -> Verilog source files
+        /rtl        -> Verilog source files
         /tb         -> Testbench files
         /doc        -> Documentation, block diagrams
         /demo       -> Verilog source files synthesized on the FPGA
