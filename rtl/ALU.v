@@ -146,4 +146,5 @@ overflow flag => detects signed overflow errors.
 
 carry bit => indicates when the result of an arithmetic operation exceeds the available bits in the destination register.
     for example, in a 8bit alu if the result is over 255 the carry bbit is set to 1
+
 */
