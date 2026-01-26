@@ -1,5 +1,5 @@
 # RISC-Style ALU on Tang Nano 9k FPGA
-ALU in Verilog with 16 arithmetic, logic, and comparative operations. Equiped with self-checking testbench system.
+ALU in Verilog/System Verilog with 16 arithmetic, logic, and comparative operations. Equiped with self-checking testbench system.
 
 ### Demos
 #### 4-Bit Demo with 7-Seg Display [(code here)](https://github.com/ChidumamAmadi-Obi/RISC-Style-ALU/tree/main/demo)
@@ -36,14 +36,14 @@ ALU in Verilog with 16 arithmetic, logic, and comparative operations. Equiped wi
 | Data Transfer | MFHI, MFLO |
 
 ### Tools
-- **HDL:** Verilog
+- **HDL:** Verilog/System Verilog
 - **FPGA:** Gowin Tang Nano 9K (GW1NR-LV9)
-- **IDE:** VSCode
+- **IDE:** VSCode/EDA Playground
 - **Extensions:** <br>
   - Verilog-HDL/SystemVerilog/Bluespec SystemVerilog by Masahiro Hiramori <br>
   - WaveTrace by wavetrace <br>
   - Lushay Code by Lushay Labs <br>
-- **Simulation & Synthesis Tool:** Icarus Verilog
+- **Simulation & Synthesis Tool:** Icarus Verilog/Synopsys VCS 2023.03 (for System Verilog)
 
 ### Repository Structure
 ```
