@@ -1,6 +1,8 @@
 `ifndef _CONSTANTS_ // file guard
 `define _CONSTANTS_
 
+`timescale 1ns/1ps // specifies the time units and precision for sim
+
 // op codes for ALU
 parameter OP_ADD=0;
 parameter OP_SUB=1;
