@@ -17,7 +17,8 @@ module top_tb;
                             NUM_DIV_TESTS +
                             NUM_MULT_TESTS +
                             NUM_ROTATION_TESTS +
-                            NUM_LOGICAL_TESTS;
+                            NUM_LOGICAL_TESTS + 
+                            4; // no of edge case tests
 
     // localparam MAX_ROTATE_OPERAND = ;
     localparam MAX_OPERAND = 255;
@@ -89,7 +90,7 @@ module top_tb;
 
         $display("TESTING ADDITION...");
         sel=OP_ADD;
-        for(integer i=0; i<=NUM_ADD_TESTS; i++) begin // test addition 5 times
+        for(integer i=0; i<NUM_ADD_TESTS; i++) begin // test addition 5 times
             testNo++;
             a=$urandom_range(MIN_OPERAND,MAX_OPERAND);
             b=$urandom_range(MIN_OPERAND,MAX_OPERAND);
@@ -105,7 +106,7 @@ module top_tb;
 
         $display("TESTING SUBTRACTION...");
         sel=OP_SUB;
-        for(integer i=0; i<=NUM_SUB_TESTS; i++) begin 
+        for(integer i=0; i<NUM_SUB_TESTS; i++) begin 
             testNo++;
             a=$urandom_range(MIN_OPERAND,MAX_OPERAND);
             b=$urandom_range(MIN_OPERAND,MAX_OPERAND);
@@ -120,7 +121,7 @@ module top_tb;
         ref real sel);
 
         $display("TESTING LOGICAL INSTRICTIONS...");
-        for (integer i=0; i<=NUM_LOGICAL_TESTS; i++) begin
+        for (integer i=0; i<NUM_LOGICAL_TESTS; i++) begin
             testNo++;
             sel=$urandom_range(OP_AND,OP_LESS_THAN); // chose random logical instruction
             a=$urandom_range(MIN_OPERAND,MAX_OPERAND);
@@ -137,7 +138,7 @@ module top_tb;
 
         $display("TESTING DIVISION...");
         sel=OP_DIVIDE;
-            for (integer i=0; i<=NUM_DIV_TESTS; i++) begin
+            for (integer i=0; i<NUM_DIV_TESTS; i++) begin
                 testNo++;
                 a=$urandom_range(MIN_OPERAND,MAX_OPERAND);
                 b=$urandom_range(MIN_OPERAND,MAX_OPERAND);
@@ -152,15 +153,18 @@ module top_tb;
         ref real sel);
 
         $display("TESTING MULTIPLICATION...");
-        sel=OP_MULT;
-            for (integer i=0; i<=NUM_MULT_TESTS; i++) begin
+            for (integer i=0; i<NUM_MULT_TESTS; i++) begin
                 testNo++;
                 a=$urandom_range(MIN_OPERAND,MAX_OPERAND);
                 b=$urandom_range(MIN_OPERAND,MAX_OPERAND);
-                loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn);
+                sel=OP_MULT; loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // defaults to outputing the contents of low reg
+                sel=OP_MFHI; loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // output contents of high reg
+                sel=OP_MFLO; loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // output contents of lo reg
+
         end
     endtask
-  /*task testRotate(
+    /*
+    task testRotate(
         ref real a,
         ref real b,
         ref real sel);
@@ -174,11 +178,38 @@ module top_tb;
         end
     endtask*/
 
+    task testEdgecases(        
+        ref integer testNo,
+        ref integer [NUM_TESTS-1:0] errors,     
+        ref real a,
+        ref real b,
+        ref real sel);
+
+        $display("TESTING EDGE CASES...");
+
+        sel=255; 
+        testNo++; 
+        loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // invalid opcode
+
+        b=205; 
+        sel=OP_ROTATE_LEFT;
+        testNo++; 
+        loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // invalid rotate operand
+        
+        testNo++;
+        sel=OP_ROTATE_RIGHT;
+        loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); 
+
+        b=0; 
+        sel=OP_DIVIDE;
+        testNo++; 
+        loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // division by zero
+    endtask
+
     initial begin
         $display("-----");
-        $monitor("%0d -> TIME: %0d | SEL: 0x%0X | A: 0x%0X | B: 0x%0X | RESULT: 0x%0X |-| EF: %b | OF: %b | ZF: %b | CF: %b |", 
-          testNo, $time, 
-          sel, a, b, result, errorFlag, overflowFlag, zeroFlag, carryFlag);
+        $monitor("|| %0d -> t: %0d | SEL: 0x%0H | A: 0x%0H | B: 0x%0H | RESULT: 0x%0H |#| EF: %b | OF: %b | ZF: %b | CF: %b ||", 
+          testNo, $time, sel, a, b, result, errorFlag, overflowFlag, zeroFlag, carryFlag);
 
         clkIn=0;
         rstN=1;
@@ -189,9 +220,10 @@ module top_tb;
 
         testAddition(testNo,errors,a,b,sel);
         testSubtraction(testNo,errors,a,b,sel);
+        testDivision(testNo,errors,a,b,sel);
         testLogic(testNo,errors,a,b,sel);
         testMultiplication(testNo,errors,a,b,sel);
-        testDivision(testNo,errors,a,b,sel);
+        testEdgecases(testNo,errors,a,b,sel);
 
         $display("-----");
 		$finish;
