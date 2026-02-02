@@ -3,7 +3,10 @@
 
 `timescale 1ns/1ps // specifies the time units and precision for sim
 
-// CONFIG
+// CONFIGURE TEST BENCH
+`define DISPLAY_TEST_OUTPUTS 1 
+
+// CONFIGURE ALU
 parameter OPERAND_WIDTH=8;               // define bit length 
 parameter FULL_RESULT_WIDTH=OPERAND_WIDTH+1;
 parameter INST_ADDR_LENGTH=3;
@@ -29,5 +32,15 @@ typedef enum {
     OP_MFHI,            // 15 ,move from low register
     OP_MFLO             // 16 ,move from high register
 } ALUOpcodes;
+
+typedef struct {
+    logic [OPERAND_WIDTH-1:0] result;
+    logic error;
+    logic zero;
+    logic carry;
+    logic overflow;    
+} ExpectedALUOutputs;
+
+
 
 `endif

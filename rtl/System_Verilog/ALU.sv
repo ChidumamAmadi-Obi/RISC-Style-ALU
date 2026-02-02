@@ -14,8 +14,7 @@ module top(
   	output logic error,	 
     output logic zero,     
     output logic carry,    
-    output logic overflow 
-);
+    output logic overflow );
 
 // internal signals and registers
     logic [FULL_RESULT_WIDTH-1:0] fullResult; // Extra bit for carry
@@ -26,18 +25,20 @@ module top(
 
     always_ff @( posedge clk or negedge rstN ) begin // loading into instruction reg file
         if (!rstN) begin
+            hiReg <= 0; // clear hi and lo reg at reset
+            lowReg <= 0;
             for (integer i=0; i<INST_ADDR_LENGTH; i++) begin
                 instructionReg[i]<=0; // init all regs to zero
             end
         end else if (writeEn) begin
             instructionReg[writeAddress] <= inst;
+        end else if (instructionReg[0] == OP_MULT) begin // handle multiplication in seq block
+            {hiReg, lowReg} <= instructionReg[1] * instructionReg[2]; // Store multiplication result in hiReg and lowReg
         end
     end
 
     always_comb begin // combinational logic
         // Default assignments to avoid latches
-        hiReg=0;
-        lowReg=0;
         fullResult=0;  
         error=0;
         
@@ -102,8 +103,7 @@ module top(
             OP_ROTATE_LEFT: begin 
             end*/
             OP_MULT: begin
-                {fullResult[OPERAND_WIDTH] , hiReg , lowReg} = instructionReg[1] * instructionReg[2]; // store the result of a*b in two registers
-                result = lowReg; // output lowest bits of multiplication result
+                result = lowReg; // output lowest bits of multiplication result calculated in seq block
                 error=0;
             end
             OP_DIVIDE: begin 
@@ -112,6 +112,7 @@ module top(
                     error=1;
                 end else begin
                     fullResult=instructionReg[1]/instructionReg[2];
+                    result=fullResult[OPERAND_WIDTH-1:0];
                     error=0;
                 end
             end
