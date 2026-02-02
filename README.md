@@ -1,5 +1,5 @@
 # RISC-Style ALU on Tang Nano 9k FPGA
-ALU in Verilog/System Verilog with 16 arithmetic, logic, and comparative operations. Equiped with self-checking testbench system.
+ALU in Verilog/SystemVerilog with 16 arithmetic, logic, and comparative operations. Equiped with self-checking testbench system.
 
 ### Demos
 #### 4-Bit Demo with 7-Seg Display [(code here)](https://github.com/ChidumamAmadi-Obi/RISC-Style-ALU/tree/main/demo)
@@ -47,8 +47,8 @@ ALU in Verilog/System Verilog with 16 arithmetic, logic, and comparative operati
 
 ### Repository Structure
 ```
-        /rtl        -> Verilog source files
-        /tb         -> Testbench files
+        /rtl        -> Verilog & SystemVerilog source files
+        /tb         -> Verilog & SystemVerilog Testbench files
         /doc        -> Documentation, block diagrams
         /demo       -> Verilog source files synthesized on the FPGA
 ```
