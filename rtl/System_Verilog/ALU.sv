@@ -98,10 +98,14 @@ module top(
                 fullResult = {1'b0, result};   
                 error=0;             
             end
-          /*OP_ROTATE_RIGHT: begin 
+            OP_ROTATE_RIGHT: begin 
+                fullResult = instructionReg[1] >> instructionReg[2];
+                result = fullResult[OPERAND_WIDTH-1:0];
             end
             OP_ROTATE_LEFT: begin 
-            end*/
+                fullResult = instructionReg[1] << instructionReg[2];
+                result = fullResult[OPERAND_WIDTH-1:0];
+            end
             OP_MULT: begin
                 result = lowReg; // output lowest bits of multiplication result calculated in seq block
                 error=0;
