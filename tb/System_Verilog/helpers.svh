@@ -2,7 +2,13 @@
 `define HELPERS
 
     `include "ALU_constants.svh"
-
+        
+    task pulse(ref logic clkIn); // simulate 100MHz clock
+        clkIn=~clkIn; #5;
+        clkIn=~clkIn; #5;
+    endtask
+    
+    // simulate ALU
     function ExpectedALUOutputs calcExpectedOutputs ( // calculate expected alu outputs
       logic [OPERAND_WIDTH-1:0] a,
       logic [OPERAND_WIDTH-1:0] b,
@@ -61,10 +67,14 @@
                 expected.result = a < b;
                 expected.error=0;          
             end
-            /*OP_ROTATE_RIGHT: begin 
+            OP_ROTATE_RIGHT: begin 
+                fullResult = a << b;
+                expected.result = fullResult[OPERAND_WIDTH-1:0];
             end
             OP_ROTATE_LEFT: begin 
-            end*/
+                fullResult = a >> b;
+                expected.result = fullResult[OPERAND_WIDTH-1:0];
+            end
             OP_MULT: begin
                 {fullResult[OPERAND_WIDTH] , hiReg , lowReg} = a * b;
                 expected.result = lowReg;
@@ -104,12 +114,10 @@
         logic overflowFlag,
         logic carryFlag);
 
-        logic errorDetected = (result != exp.result) || 
-                              (errorFlag != exp.error) || 
-                              (zeroFlag != exp.zero) || 
-                              (overflowFlag != exp.overflow) || 
-                              (carryFlag != exp.carry);
-
-        return errorDetected;
+        return ((result != exp.result)         || 
+                (errorFlag != exp.error)       || 
+                (zeroFlag != exp.zero)         || 
+                (overflowFlag != exp.overflow) || 
+                (carryFlag != exp.carry));
     endfunction
 `endif

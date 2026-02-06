@@ -3,6 +3,7 @@
 
 module top_tb;
 
+// CONFIG
     // configure number of tests done and output display here
   	localparam DISPLAY_TEST_OUTPUTS=1;
     localparam NUM_ADD_TESTS = 3;
@@ -19,10 +20,10 @@ module top_tb;
                             NUM_LOGICAL_TESTS + 
                             4; // no of edge case tests
 
-    // localparam MAX_ROTATE_OPERAND = ;
-    localparam MAX_OPERAND = 255;
+    localparam MAX_OPERAND = 255; // for 8 bit alu
     localparam MIN_OPERAND = 0;
-    
+
+// INIT
     logic clkIn; // inputs
     logic rstN;
     logic writeEn;
@@ -39,10 +40,10 @@ module top_tb;
     real b;
     real sel;
 
-    logic [NUM_TESTS-1:0] errors='0; // error checking and reporting
-    integer isAnError=0;
-    integer testNo=0;
-    integer noOfErrors=0;
+    logic [NUM_TESTS-1:0] errors; // error checking and reporting
+    logic errorDetected;
+    integer testNo;
+    integer noOfErrors;
 
     ExpectedALUOutputs exp = {default: '0};
 
@@ -58,14 +59,15 @@ module top_tb;
         .carry(carryFlag),
         .overflow(overflowFlag) );
     
+// HELPER TASKS
     task handleErrorChecking( 
         input ExpectedALUOutputs exp,
         ref integer testNo,
         ref logic [NUM_TESTS-1:0] errors );
 
-        logic errorDetected = detectErrors(exp,result,errorFlag,zeroFlag,overflowFlag,carryFlag);
+        errorDetected = detectErrors(exp,result,errorFlag,zeroFlag,overflowFlag,carryFlag);
 
-        if ( errorDetected ) begin
+        if ( errorDetected ) begin // set test number bit if error is detected
             errors |= 1 << testNo;
         end
 
@@ -77,15 +79,15 @@ module top_tb;
         end
         testNo++;
     endtask
-    task errorReport(
+    task errorReport( 
         input logic [NUM_TESTS-1:0] errors,
         input integer testNo,
         ref integer noOfErrors);
 
         for ( integer i=0; i<testNo; i++ ) begin
-            if (((errors >> i) & 1) == 1) begin 
+            if (((errors >> i) & 1) == 1) begin // check if test failed by seeing if bit is set
                 $display ("FAILED TEST NUMBER %0d",i);
-                noOfErrors++;
+                noOfErrors++; 
             end
         end
 
@@ -95,11 +97,7 @@ module top_tb;
             $display("TEST SUCCESSFUL, NO ERRORS FOUND!");
         end
     endtask
-    task pulse(ref logic clkIn);
-        clkIn=~clkIn; #5;
-        clkIn=~clkIn; #5;
-    endtask
-	task loadInstruction(
+	task loadInstruction( // loads instruction into instruction register file
         input real opcode,
 		input real inputA,
 		input real inputB,
@@ -117,7 +115,7 @@ module top_tb;
         writeEn=0; // disable write
 	endtask
 
-    // test tasks insert ranomized operands 
+    // test tasks insert ranomized operands into ALU
     task testAddition(
         ref integer testNo,
         ref logic [NUM_TESTS-1:0] errors, 
@@ -129,12 +127,11 @@ module top_tb;
 
         sel=OP_ADD;
         for(integer i=0; i<NUM_ADD_TESTS; i++) begin // test addition 5 times
-            
-            a=$urandom_range(MIN_OPERAND,MAX_OPERAND);
+            a=$urandom_range(MIN_OPERAND,MAX_OPERAND); // select randomized operands from 0-2^n when n is the operand bit length
             b=$urandom_range(MIN_OPERAND,MAX_OPERAND);
             loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn);
-            exp = calcExpectedOutputs(a,b,sel);
-            handleErrorChecking(exp,testNo,errors);
+            exp = calcExpectedOutputs(a,b,sel); 
+            handleErrorChecking(exp,testNo,errors); // check outputs against expected outputs and store result of test
         end
     endtask
     task testSubtraction( 
@@ -216,24 +213,23 @@ module top_tb;
                 handleErrorChecking(exp,testNo,errors);
         end
     endtask
-    /*
     task testRotate(
+        ref integer testNo,
+        ref logic [NUM_TESTS-1:0] errors,  
         ref real a,
         ref real b,
         ref real sel);
 
-        ExpectedALUOutputs exp= {0};
-
         $display("TESTING ROTATION...");
             for (integer i=0; i<=NUM_ROTATION_TESTS; i++) begin
                 a=$urandom_range(MIN_OPERAND,MAX_OPERAND);
-                b=$urandom_range(MIN_OPERAND,MAX_ROTATE_OPERAND);
+                b=$urandom_range(MIN_OPERAND,MAX_OPERAND);
                 sel=$urandom_range(OP_ROTATE_LEFT,OP_ROTATE_RIGHT);
-                loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn);
                 exp = calcExpectedOutputs(a,b,sel);
+                loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn);
                 handleErrorChecking(exp,testNo,errors);
         end
-    endtask*/
+    endtask
     task testEdgecases(
         ref integer testNo,
         ref logic [NUM_TESTS-1:0] errors,     
@@ -244,27 +240,23 @@ module top_tb;
         $display("TESTING EDGE CASES...");
 
         sel=255; 
-         
         loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // invalid opcode
         exp = calcExpectedOutputs(a,b,sel);
         handleErrorChecking(exp,testNo,errors);
 
         b=205; 
         sel=OP_ROTATE_LEFT;
-         
         loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // invalid rotate operand
         exp = calcExpectedOutputs(a,b,sel);
         handleErrorChecking(exp,testNo,errors);
         
-        
         sel=OP_ROTATE_RIGHT;
-        loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); 
+        loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // invalid rotate operand
         exp = calcExpectedOutputs(a,b,sel);
         handleErrorChecking(exp,testNo,errors);
 
         b=0; 
         sel=OP_DIVIDE;
-         
         loadInstruction(sel,a,b,writeAdd,writeEn,instructionIn); // division by zero
         exp = calcExpectedOutputs(a,b,sel);
         handleErrorChecking(exp,testNo,errors);
@@ -278,17 +270,21 @@ module top_tb;
         a=0;
         b=0;
         sel=0;
+
+        errors={default: '0};
+        errorDetected=0;
         testNo=0;
         noOfErrors=0;
 
         pulse(rstN);
 
         testAddition(testNo,errors,a,b,sel);
-        //testSubtraction(testNo,errors,a,b,sel);
-        //testDivision(testNo,errors,a,b,sel);
-        //testLogic(testNo,errors,a,b,sel);
-        //testMultiplication(testNo,errors,a,b,sel);
-        //testEdgecases(testNo,errors,a,b,sel);
+        testSubtraction(testNo,errors,a,b,sel);
+        testDivision(testNo,errors,a,b,sel);
+        testLogic(testNo,errors,a,b,sel);
+        testMultiplication(testNo,errors,a,b,sel);
+        testRotate(testNo,errors,a,b,sel);
+        testEdgecases(testNo,errors,a,b,sel);
 
         errorReport(errors,testNo,noOfErrors); /// report on errors
 
@@ -296,3 +292,4 @@ module top_tb;
 		$finish;
     end
 endmodule
+
